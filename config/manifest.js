@@ -89,7 +89,7 @@ internals.manifest = {
             plugin: 'hapi-swagger',
             options: {
                     info: {
-                        title: 'Test API Documentation',
+                        title: 'API Documentation',
                         version: Pack.version,
                     },
                     host: process.env.SWAGGER_HOST,
@@ -143,6 +143,7 @@ internals.manifest = {
         //**************************************************************
         
         /* ----------------- Start web api routes -------------- */
+        /*
         {
             plugin: './app/routes/webApi/core.js'
         },
@@ -160,7 +161,7 @@ internals.manifest = {
         },
         {
             plugin: './app/routes/webApi/setting.js'
-        },
+        },*/
         /* ----------------- End web apiroutes  -------------- */
 
         /* ----------------- Start mobile api routes -------------- */
@@ -173,17 +174,7 @@ internals.manifest = {
         },
         {
             plugin: './app/routes/mobileApi/v1/signup.js'
-        },
-           /* Version v2 apis */
-        {
-            plugin: './app/routes/mobileApi/v2/jwtauth.js'
-        },
-        {
-            plugin: './app/routes/mobileApi/v2/user.js'
-        },
-        {
-            plugin: './app/routes/mobileApi/v2/signup.js'
-        },
+        }
         /* ----------------- End mobile api routes -------------- */
         ]
     }
