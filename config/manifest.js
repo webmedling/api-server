@@ -43,6 +43,12 @@ internals.manifest = {
             options: Config.get('/mongoose')
             
         },
+        //  Mysql connector 
+        {
+            plugin : './lib/database',
+            options: Config.get('/database')
+            
+        },
         // Logging connector 
         {
             plugin:  'good',
@@ -174,6 +180,9 @@ internals.manifest = {
         },
         {
             plugin: './app/routes/mobileApi/v1/signup.js'
+        },
+        {
+            plugin: './app/routes/mobileApi/v1/test.js'
         }
         /* ----------------- End mobile api routes -------------- */
         ]

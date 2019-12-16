@@ -45,6 +45,28 @@ internals.config = {
             options: {}
         }
     },
+    database: {
+        $filter: 'env',
+        production: {
+            host     : process.env.MYSQL_HOST,
+            user     : process.env.MYSQL_USER,
+            password : process.env.MYSQL_PWD,
+            database : process.env.MYSQL_DB
+        },
+        test: {
+            host     : process.env.MYSQL_HOST,
+            user     : process.env.MYSQL_USER,
+            password : process.env.MYSQL_PWD,
+            database : process.env.MYSQL_DB
+        },
+        $default: {
+            host     : process.env.MYSQL_HOST,
+            user     : process.env.MYSQL_USER,
+            password : process.env.MYSQL_PWD,
+            database : process.env.MYSQL_DB,
+            options: {}
+        }
+    },
     email: {
         host : process.env.MAIL_HOST,
         port : process.env.MAIL_PORT,
