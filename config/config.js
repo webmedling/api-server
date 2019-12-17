@@ -48,18 +48,21 @@ internals.config = {
     database: {
         $filter: 'env',
         production: {
+            maxconnections: process.env.MYSQL_MAX_CONNECTIONS,
             host     : process.env.MYSQL_HOST,
             user     : process.env.MYSQL_USER,
             password : process.env.MYSQL_PWD,
             database : process.env.MYSQL_DB
         },
         test: {
+            maxconnections: process.env.MYSQL_MAX_CONNECTIONS,
             host     : process.env.MYSQL_HOST,
             user     : process.env.MYSQL_USER,
             password : process.env.MYSQL_PWD,
             database : process.env.MYSQL_DB
         },
         $default: {
+            maxconnections: process.env.MYSQL_MAX_CONNECTIONS,
             host     : process.env.MYSQL_HOST,
             user     : process.env.MYSQL_USER,
             password : process.env.MYSQL_PWD,
