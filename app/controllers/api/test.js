@@ -1,6 +1,7 @@
 'use strict';
 const Joi = require('joi');
-const UserHelper = require('../../helpers/test');
+const User = require('../../models/test');
+const user = new User();
 
 /* ================================== Controllers for V1 ============================== */
 
@@ -13,7 +14,7 @@ exports.getUserDetails = {
         try {
             let userId = request.headers.userId;
             // Use helper method to defind service.
-            let userDetails = await UserHelper.findUserDetails(userId);
+            let userDetails = await user.findOne(userId);
             return h.response({
                 userDetails: userDetails
             }).code(200);
