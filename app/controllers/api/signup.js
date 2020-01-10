@@ -3,9 +3,8 @@ var Boom = require('boom');
 var JWT   = require('jsonwebtoken');
 const Joi = require('joi');
 const Config = require('../../../config/config');
-const Mongoose = require('mongoose');
-const User = Mongoose.model('User');
-const signupHelper = require('../../helpers/signup');
+const User = require('../../models/test');
+const user = new User();
 
 /* ================================== Controllers for V1 ============================== */
 
@@ -18,7 +17,8 @@ exports.userSignUp = {
             email: Joi.string().min(3).email().required(),
             password: Joi.string().min(5).required(),
             confirmPassword: Joi.string().min(5).required(),
-            name: Joi.string().required()
+            firstname: Joi.string().required(),
+            lastname: Joi.string().required()
         },
          failAction: (request, h, error) => {
             // Username, passowrd minimum validation failed
@@ -31,16 +31,18 @@ exports.userSignUp = {
             let password = request.payload.password;
             let confirmPassword = request.payload.confirmPassword;
             let email = request.payload.email;
-            let name = request.payload.name;
+            let firstname = request.payload.firstname;
+            let lastname = request.payload.lastname;
             if (password !== confirmPassword) {
                 return h.response({ message : 'Password does not match' }).code(401);
             }
-            let user = {
+            let userObject = {
                 email : email,
-                name : name,
+                firstname : firstname,
+                lastname : lastname,
                 password : password
             };
-            let data = await signupHelper.signUpUser(user);
+            let data = await user.create(userObject);
             if (data.statusCode === 201) {
                 let secret = Config.get('/jwtAuthOptions/key');
                 let obj = {
