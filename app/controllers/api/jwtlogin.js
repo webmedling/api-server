@@ -4,7 +4,8 @@ var Boom = require('boom');
 var JWT   = require('jsonwebtoken');
 const Joi = require('joi');
 const Config = require('../../../config/config');
-const loginHelper = require('../../helpers/login');
+const User = require('../../models/user');
+
 
 /* ================================== Controllers for V1 ============================== */
 
@@ -24,17 +25,17 @@ exports.postCredentials = {
     },
     handler: async (request, h) => {
           try {
-            // Method define in helper and used by both web and api.
-            let data = await loginHelper.findByCredentials(request.payload.email, request.payload.password);
+            let user = new User();
+            let data = await user.authenticate(request.payload.email, request.payload.password);
             if (data.statusCode === 200) {
                 let secret = Config.get('/jwtAuthOptions/key');
                 let obj = {
-                    userId : data.user.id
+                    userId : user.id
                 }; // object info you want to sign
                 let jwtToken = JWT.sign(obj, secret, { expiresIn: '1 day' });
-                data.user.password = undefined;
-                data.user.salt = undefined;
-                var response = h.response({ message : 'Successfully logged-in', user : data.user });
+                user.password = undefined;
+                user.salt = undefined;
+                var response = h.response({ message : 'Successfully logged-in', user : user });
                 response.header('Authorization', jwtToken);
                 response.code(200);
                 return response;

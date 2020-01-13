@@ -3,8 +3,7 @@ var Boom = require('boom');
 var JWT   = require('jsonwebtoken');
 const Joi = require('joi');
 const Config = require('../../../config/config');
-const User = require('../../models/test');
-const user = new User();
+const User = require('../../models/user');
 
 /* ================================== Controllers for V1 ============================== */
 
@@ -42,16 +41,17 @@ exports.userSignUp = {
                 lastname : lastname,
                 password : password
             };
-            let data = await user.create(userObject);
+            let user = new User(userObject);
+            let data = await user.create();
             if (data.statusCode === 201) {
                 let secret = Config.get('/jwtAuthOptions/key');
                 let obj = {
-                    userId : data.user.id
+                    userId : user.id
                 }; // object info you want to sign
                 let jwtToken = JWT.sign(obj, secret, { expiresIn: '1 day' });
-                data.user.password = undefined;
-                data.user.salt = undefined;
-                var response = h.response({ message : data.message, user : data.user });
+                user.password = undefined;
+                user.salt = undefined;
+                var response = h.response({ message : data.message, user : user });
                 response.header('Authorization', jwtToken);
                 response.code(201);
                 return response;

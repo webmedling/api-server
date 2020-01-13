@@ -37,12 +37,13 @@ internals.manifest = {
             plugin: './lib/email',
             options: Config.get('/email')
         },
-        //  MongoDB connector 
+        /*  MongoDB connector 
         {
             plugin : './lib/mongoose',
             options: Config.get('/mongoose')
             
         },
+        */
         //  Mysql connector 
         {
             plugin : './lib/database',
@@ -121,11 +122,12 @@ internals.manifest = {
             options: Config.get('/yarCookie')
         },
         //  Authentication strategy
+        /*
         {
             plugin: './lib/auth',
             options: Config.get('/authCookie')
         },
-
+        */
         //**************************************************************
         //                                                             *
         //                      API PLUGINS                            *
@@ -180,9 +182,6 @@ internals.manifest = {
         },
         {
             plugin: './app/routes/mobileApi/v1/signup.js'
-        },
-        {
-            plugin: './app/routes/mobileApi/v1/test.js'
         }
         /* ----------------- End mobile api routes -------------- */
         ]
