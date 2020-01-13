@@ -34,8 +34,6 @@ module.exports = class User {
 	            //let userDetails = await db.query('SELECT * FROM user WHERE user_id=?',userId);
 	            let userDetails = await db.query('SELECT * FROM user WHERE user_id=?',userId);
 	            this.mapResultToProperties(userDetails[0],dbMap);
-	            console.log("Details");
-	            console.log(this);
 	            return this;
 	        } catch (error) {
 	            console.log(error);
@@ -43,7 +41,6 @@ module.exports = class User {
 	}
 
 	async create(){
-			console.log(this);
 			try {
 	          	let data = await this.isUniqueEmail(this.email);
 	          	if(!data){
@@ -51,7 +48,6 @@ module.exports = class User {
 	          	}else{
 	          		//modify password
 	          		this.salt = Crypto.randomBytes(16).toString('base64');
-	          		console.log (this.salt);
 	          		this.password = this.hashPassword(this.password);
 	             	let savedUser = await this.save();
 	             	if(!savedUser){
